@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taller - 3D Slicer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background: url('source/SLICER.gif') no-repeat center center/cover;
+            background-attachment: fixed;
+            color: white;
+            overflow-x: hidden;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            text-transform: uppercase;
+            background: rgba(18, 18, 18, 0.8);
+        }
+        .logo {
+            text-align: center;
+        }
+        .logo h1 {
+            margin: 0;
+            font-size: 2rem;
+            color: #D3D3D3;
+        }
+        .logo p {
+            margin: 0;
+            font-size: 0.8rem;
+            color: #A9A9A9;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+        nav a.active {
+            color: #D3D3D3;
+        }
+        .hero {
+            position: relative;
+            display: flex;
+            align-items: center;
+            height: 80vh;
+        }
+        .content {
+            padding-left: 5%;
+        }
+        .content h2 {
+            font-size: 6rem;
+            color: #ffffff;
+            margin: 0;
+            text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+        }
+        .event-info {
+            background: #7d8185b5;
+            padding: 20px;
+            max-width: 450px;
+        }
+        .event-info h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.5rem;
+            color: #ffffff;
+        }
+        .event-info p {
+            margin: 5px 0;
+            font-weight: bold;
+            color: #ffffff;
+        }
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: 2px solid #5a7d9db5;
+            text-decoration: none;
+            color: #5a7d9db5;
+            background: white;
+            border-radius: 6px;
+        }
+        .social {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .social a {
+            display: block;
+            margin: 10px 0;
+            color: white;
+            text-decoration: none;
+            font-size: 1.5rem;
+        }
+        .agenda {
+            background: black;
+            color: #D3D3D3;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .agenda h2 {
+            font-size: 3rem;
+            margin-bottom: 40px;
+        }
+        .agenda > p {
+            max-width: 1100px;
+            margin: 0 auto 28px auto;
+            line-height: 1.6;
+            color: #eaeaea;
+        }
+        .agenda-item {
+            display: flex;
+            align-items: center;
+            margin: 20px auto;
+            max-width: 700px;
+            text-align: left;
+            gap: 16px;
+        }
+        .agenda-item .bar {
+            width: 5px;
+            height: 60px;
+            background: white;
+            flex-shrink: 0;
+        }
+        .agenda-item h3 {
+            margin: 0;
+            font-size: 1.4rem;
+            color: #ffffff;
+        }
+        .agenda-item h4 {
+            margin: 4px 0 6px 0;
+            font-size: 1.05rem;
+            color: #D3D3D3;
+            font-weight: 600;
+        }
+        .agenda-item p {
+            margin: 5px 0;
+            font-size: 0.95rem;
+            color: white;
+        }
+
+        /* Franja de cambio de espacio */
+        .venue-change{
+            display:flex;align-items:center;justify-content:center;gap:12px;
+            margin:32px auto;max-width:800px;padding:14px 18px;
+            background:linear-gradient(90deg,#ffffff,#A9A9A9,#ffffff);
+            color:#000;border-radius:12px;border:1px solid #fff;
+            font-weight:700;text-transform:uppercase;letter-spacing:.5px;
+            box-shadow:0 6px 20px rgba(0,0,0,.25)
+        }
+        .venue-change i{font-size:1.2rem}
+        .venue-change small{display:block;font-weight:400;text-transform:none;letter-spacing:0;opacity:.85}
+
+        .newsletter {
+            background: black;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .newsletter-container {
+            background: #A9A9A9;
+            padding: 40px;
+            display: inline-block;
+            text-align: left;
+            border-radius: 10px;
+        }
+        .newsletter h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: white;
+            text-transform: uppercase;
+        }
+        .newsletter p {
+            color: black;
+            font-size: 1rem;
+        }
+        .newsletter input {
+            padding: 10px;
+            border: 2px solid black;
+            margin-right: 10px;
+            border-radius: 6px;
+        }
+        .newsletter button {
+            padding: 10px 20px;
+            border: 2px solid black;
+            background: white;
+            cursor: pointer;
+            border-radius: 6px;
+            font-weight: 700;
+        }
+        .chat-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #A9A9A9;
+            padding: 10px;
+            border-radius: 50%;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px){
+            .content h2{font-size: 3rem;}
+            .agenda h2{font-size: 2rem;}
+            .agenda-item{max-width: 95%;}
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <a href="index.html" class="active">Inicio</a>
+        <a href="speakers.html">Ponentes</a>
+        <a href="about.html">Sobre 3D Slicer Latinoamérica</a>
+    </nav>
+    <div class="logo">
+        <h1>3D SLICER</h1>
+        <p>for Latinoamérica</p>
+    </div>
+    <p>Estado de México, México, 2025</p>
+</header>
+
+<div class="hero">
+    <div class="social">
+        <a href="https://github.com/SlicerLatinAmerica" target="_blank" aria-label="GitHub Slicer Latinoamérica"><i class="fa-brands fa-github"></i></a>        
+        <a href="https://slicerlatinamerica.github.io/events.html" target="_blank" aria-label="Sitio de eventos Slicer LATAM"><i class="fa-solid fa-globe"></i></a> 
+    </div>
+
+    <div class="content">
+        <h2>3D Slicer: Imágenes por Ultrasonido</h2>
+
+        <div class="event-info">
+            <h3>27 DE OCTUBRE DE 2025 · 8:00–14:00 H</h3>
+            <p>FACULTAD DE INGENIERÍA, UNIVERSIDAD AUTÓNOMA DEL ESTADO DE MÉXICO</p>
+            <a href="#" class="button">REGISTRO</a>
+        </div>
+    </div>
+</div>
+
+<section class="agenda">
+    <h2>3D Slicer for Latinoamérica – Imágenes por Ultrasonido</h2>
+    <p>
+        El 27 de octubre de 2025 se llevará a cabo un evento académico centrado en el papel de la ingeniería biomédica en el campo de la imagenología médica, con un enfoque especial en el uso de 3D Slicer y la tecnología de ultrasonido. La jornada reunirá a expertos nacionales e internacionales de instituciones como Harvard Medical School, la Universidad Autónoma del Estado de México, UltraTab y la Universidad Militar Nueva Granada. A través de conferencias magistrales, ponencias y talleres prácticos, se busca fortalecer el conocimiento y las competencias de estudiantes y profesionales en técnicas avanzadas de adquisición, análisis y segmentación de imágenes médicas, promoviendo la investigación y la innovación en aplicaciones clínicas.
+    </p>
+
+    <h2>Agenda del evento</h2>
+
+    <div class="agenda-item">
+        <div class="bar"></div>
+        <div>
+            <h3>Bienvenida</h3>
+            <p>8:00–8:30 AM</p>
+        </div>
+    </div>
+
+    <div class="agenda-item">
+        <div class="bar"></div>
+        <div>
+            <h3>Conferencia magistral</h3>
+            <h4>The role of the biomedical engineer in medical imaging: success stories in clinical and research applications using 3D Slicer</h4>
+            <p>Dr. Sonia Pujol · 8:30–9:00 AM</p>
+        </div>
+    </div>
+
+    <div class="agenda-item">
+        <div class="bar"></div>
+        <div>
+            <h3>Ponencia</h3>
+            <h4>Conceptos básicos y física del ultrasonido</h4>
+            <p>M. Enrique Hernández Laredo · 9:00–9:30 AM</p>
+        </div>
+    </div>
+
+    <div class="agenda-item">
+        <div class="bar"></div>
+        <div>
+            <h3>Coffee break</h3>
+            <p>9:30–9:50 AM</p>
+        </div>
+    </div>
+
+    <div class="agenda-item">
+        <div class="bar"></div>
+        <div>
+            <h3>Ponencia</h3>
+            <h4>Adquisición de imágenes por ultrasonido</h4>
+            <p>Dr. Fausto Álvarez · 9:50–11:20 AM</p>
+        </div>
+    </div>
+
+    <!-- Franja de cambio de espacio -->
+    <div class="venue-change" role="note" aria-label="Cambio de espacio">
+        <i class="fa-solid fa-location-arrow" aria-hidden="true"></i>
+        <div>
+            Cambio de espacio — traslado de <strong>Laboratorio de Robótica (Edificio G)</strong> a <strong> Sala de Cómputo___ (Edificio A)</strong>
+            <small>11:20–11:35 · Favor de llevar sus pertenencias</small>
+        </div>
+    </div>
+
+    <div class="agenda-item">
+        <div class="bar"></div>
+        <div>
+            <h3>Taller</h3>
+            <h4>Introducción a imágenes DICOM: carga, visualización y otros usos de 3D Slicer</h4>
+            <p>Por confirmar · 11:35 AM–12:15 PM</p>
+        </div>
+    </div>
+
+    <div class="agenda-item">
+        <div class="bar"></div>
+        <div>
+            <h3>Taller</h3>
+            <h4>Segmentación de imágenes con ultrasonido</h4>
+            <p>Ing. Leidy Mora · 12:15–1:45 PM</p>
+        </div>
+    </div>
+
+    <div class="agenda-item">
+        <div class="bar"></div>
+        <div>
+            <h3>Sección de preguntas</h3>
+            <p>1:45–1:55 PM</p>
+        </div>
+    </div>
+
+<!-- Franja de cambio de espacio -->
+    <div class="venue-change" role="note" aria-label="Cambio de espacio">
+        <i class="fa-solid fa-location-arrow" aria-hidden="true"></i>
+        <div>
+            Cambio de espacio — traslado de <strong> Sala de Cómputo___ (Edificio A) <strong> a</strong> Laboratorio de Robótica (Edificio G)</strong>
+            <small> Favor de llevar sus pertenencias</small>
+        </div>
+    </div>
+    <div class="agenda-item">
+        <div class="bar"></div>
+        <div>
+            <h3>Palabras de clausura y convivencia</h3>
+            <p>2:00 PM</p>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>
